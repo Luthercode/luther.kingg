@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sufo.bio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-video">
+        <video autoplay loop muted playsinline>
+            <source src="assets/lv_0_20250828091120.mp4" type="video/mp4">
+        </video>
+        <div class="overlay"></div>
+    </div>
+    <div id="enter-screen" style="position:fixed;z-index:1000;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(10,10,10,0.98);backdrop-filter:blur(2px);transition:opacity 0.5s;">
+        <div style="text-align:center;">
+            <h2 style="color:#bbb;font-size:1.1rem;margin-top:18px;letter-spacing:1px;">Click to enter</h2>
+        </div>
+    </div>
+    <div id="custom-notify" style="display:none;position:fixed;top:32px;right:32px;z-index:1200;min-width:180px;max-width:90vw;padding:10px 18px;background:rgba(20,20,20,0.92);color:#fff;border-radius:14px;box-shadow:0 4px 32px #000a,0 0 0 2px #fff2;font-family:'Montserrat',Arial,sans-serif;font-size:0.98rem;letter-spacing:1px;opacity:0;transform:scale(0.7);transition:opacity 0.5s,transform 0.5s;backdrop-filter:blur(2px);align-items:center;gap:10px;user-select:none;">
+        <span style="vertical-align:middle;">quer um linkbio personalizado só seu? <b>é so chamar 🎩</b></span>
+    </div>
+    <main>
+        <div class="profile inactive">
+            <div class="avatar-glow inactive-glow">
+                <img class="avatar inactive-glow" src="assets/zoio.jpg" alt="Avatar">
+            </div>
+            <h1 class="username" id="main-username">LUTHER</h1>
+            <p class="desc" id="main-desc">🎩Sociopath.</p>
+            <div class="social-icons">
+                <a href="#" title="Chat"><img src="assets/icon.svg" alt="Chat"></a>
+                <a href="https://discord.gg/d9DCUBdtdn" title="Discord"><img src="assets/discord.svg" alt="Discord"></a>
+                <a href="https://www.instagram.com/luther.kingg?igsh=OXUycnl3cjM4MmRr" title="Instagram"><img src="assets/instagram.svg" alt="Instagram"></a>
+                <a href="https://www.roblox.com/share?code=fe113ab3011ebf4d9bba5e4bedaeb4f7&type=Profile&source=ProfileShare&stamp=1756376143734" title="Roblox"><img src="assets/roblox.svg" alt="Roblox"></a>
+                <a href="#" title="Outro"><img src="assets/icon2.svg" alt="Outro"></a>
+            </div>
+            <div class="audio-player">
+                <img class="audio-avatar" src="assets/logo.jpg" alt="Audio Avatar">
+                <div class="audio-info">
+                    <span class="audio-title">𓆩♱𓆪</span>
+                    <span class="audio-time" id="audio-time">0:00</span>
+                </div>
+                <div class="audio-controls">
+                    <input type="range" id="audio-bar" min="0" max="100" value="0" step="1" style="width:70px;">
+                    <button class="audio-play" id="audio-play"><span>⏸</span></button>
+                </div>
+                <audio id="audio" src="assets/old doll - mad father (sad version).mp3" loop></audio>
+            </div>
+            <div class="views">
+                <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;">
+                  <img src="assets/icons8-visível.gif" alt="pisca" class="gif-round-slow">
+                  <span id="view-count" style="font-family:'Montserrat',Arial,sans-serif;font-size:1.1em;color:#181818;font-weight:bold;text-shadow:0 1px 4px #000a;display:block;text-align:center;margin-top:2px;">...</span>
+                </div>
+            </div>
+            <script>
+            // Contador de visitas usando VisitorBadge (apenas número)
+            fetch('https://api.visitorbadge.io/api/visitors?path=Luthercode.fullfidelis.com&countColor=%23181818')
+              .then(r => r.json())
+              .then(data => {
+                document.getElementById('view-count').textContent = data.visitors;
+              })
+              .catch(() => {
+                document.getElementById('view-count').textContent = '?';
+              });
+
+            // Player de música real
+            const audio = document.getElementById('audio');
+            const playBtn = document.getElementById('audio-play');
+            const timeSpan = document.getElementById('audio-time');
+            const bar = document.getElementById('audio-bar');
+            let isPlaying = false;
+
+            function formatTime(s) {
+                const m = Math.floor(s / 60);
+                const ss = Math.floor(s % 60);
+                return m + ':' + (ss < 10 ? '0' : '') + ss;
+            }
+
+            function updateBar() {
+                bar.value = audio.duration ? (audio.currentTime / audio.duration * 100) : 0;
+                timeSpan.textContent = formatTime(audio.currentTime);
+            }
+
+            playBtn.onclick = function() {
+                if (audio.paused) {
+                    audio.play();
+                } else {
+                    audio.pause();
+                }
+            };
+
+            audio.onplay = function() {
+                playBtn.innerHTML = '<span> 𝄞 </span>';
+            };
+            audio.onpause = function() {
+                playBtn.innerHTML = '<span> ✹ </span>';
+            };
+            audio.ontimeupdate = updateBar;
+            audio.onloadedmetadata = updateBar;
+            bar.oninput = function() {
+                if (audio.duration) {
+                    audio.currentTime = bar.value / 100 * audio.duration;
+                }
+            };
+
+            // Tocar automaticamente (alguns navegadores só permitem após interação)
+            function showSite() {
+                document.getElementById('enter-screen').style.opacity = 0;
+                setTimeout(() => {
+                    document.getElementById('enter-screen').style.display = 'none';
+                }, 500);
+                audio.volume = 0.7;
+                audio.play().catch(()=>{});
+                // Ativar efeitos visuais
+                document.querySelector('.profile').classList.remove('inactive');
+                document.querySelector('.avatar-glow').classList.remove('inactive-glow');
+                document.querySelector('.avatar').classList.remove('inactive-glow');
+                document.getElementById('main-username').classList.add('glow');
+                document.getElementById('main-desc').classList.add('typing');
+                // Notificação minimalista no topo direito
+                setTimeout(() => {
+                    const notify = document.getElementById('custom-notify');
+                    notify.style.display = 'flex';
+                    setTimeout(() => {
+                        notify.style.opacity = 1;
+                        notify.style.transform = 'scale(1)';
+                    }, 50);
+                    setTimeout(() => {
+                        notify.style.opacity = 0;
+                        notify.style.transform = 'scale(0.7)';
+                        setTimeout(() => {
+                            notify.style.display = 'none';
+                        }, 600);
+                    }, 4200); // 4.2s visível
+                }, 600);
+            }
+            window.addEventListener('DOMContentLoaded', () => {
+                document.getElementById('enter-screen').addEventListener('click', showSite, { once: true });
+            });
+            </script>
+        </div>
+    </main>
+</body>
+<style>
+.gif-round-slow {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #222;
+  box-shadow: 0 2px 8px #0005;
+  background: #181818;
+  /* Não é possível desacelerar o gif via CSS, mas pode-se usar filter para dar um efeito diferente */
+  filter: grayscale(0.2) brightness(0.92);
+}
+</style>
+</body>
+</html>
