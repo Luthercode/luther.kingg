@@ -57,16 +57,6 @@
                 </div>
             </div>
             <script>
-            // Contador de visitas usando VisitorBadge (apenas número)
-            fetch('https://api.visitorbadge.io/api/visitors?path=Luthercode.fullfidelis.com&countColor=%23181818')
-              .then(r => r.json())
-              .then(data => {
-                document.getElementById('view-count').textContent = data.visitors;
-              })
-              .catch(() => {
-                document.getElementById('view-count').textContent = '?';
-              });
-
             // Player de música real
             const audio = document.getElementById('audio');
             const playBtn = document.getElementById('audio-play');
@@ -160,4 +150,5 @@
 </style>
 </body>
 </html>
+
 
